@@ -128,3 +128,25 @@ module "middleware_common" {
     aws = "aws.middleware"
   }
 }
+
+data "template_file" "pull_request_router" {
+  template = "${file("${path.module}/templates/pull-request-router.js")}"
+
+  vars {
+    path_re = "${var.pull_request_path_re}"
+  }
+}
+
+module "pull_request_router" {
+  source = "./middleware"
+
+  name        = "${local.name_prefix}-pull-request-router"
+  code        = "${data.template_file.pull_request_router.rendered}"
+  code_bucket = "${module.middleware_common.source_bucket_name}"
+  role_arn    = "${module.middleware_common.role_arn}"
+  tags        = "${local.tags}"
+
+  providers = {
+    aws = "aws.middleware"
+  }
+}
