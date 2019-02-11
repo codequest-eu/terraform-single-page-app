@@ -100,6 +100,12 @@ resource "aws_cloudfront_distribution" "assets" {
         forward = "none"
       }
     }
+
+    lambda_function_association {
+      event_type   = "origin-request"
+      lambda_arn   = "${module.pull_request_router.arn}"
+      include_body = false
+    }
   }
 
   restrictions {
