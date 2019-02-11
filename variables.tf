@@ -45,3 +45,8 @@ variable "cloudfront_price_class" {
 variable "basic_auth_credentials" {
   description = "Basic auth credentials in user:pass format"
 }
+
+variable "pull_request_path_re" {
+  description = "Regular expression which extracts the base directory of a PR as it's first match group"
+  default     = "^/(PR-\\d+)($|/)"
+}
