@@ -9,8 +9,9 @@ module "basic" {
   source = ".."
 
   # only project name and environment are required
-  project     = "terraform-spa"
-  environment = "example"
+  project                = "terraform-spa-auth"
+  environment            = "example"
+  basic_auth_credentials = "example:app"
 }
 
 resource "aws_s3_bucket_object" "basic_index" {
