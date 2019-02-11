@@ -41,3 +41,7 @@ variable "cloudfront_price_class" {
 
   default = "PriceClass_100"
 }
+
+variable "basic_auth_credentials" {
+  description = "Basic auth credentials in user:pass format"
+}
