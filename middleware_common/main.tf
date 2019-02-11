@@ -1,5 +1,4 @@
 provider "aws" {
-  alias  = "middleware"
   region = "us-east-1"
 }
 
@@ -24,8 +23,7 @@ resource "aws_iam_role" "role" {
 }
 
 resource "aws_s3_bucket" "code" {
-  provider = "aws.middleware"
-  bucket   = "${var.name_prefix}-middleware-code"
-  acl      = "private"
-  tags     = "${var.tags}"
+  bucket = "${var.name_prefix}-middleware-code"
+  acl    = "private"
+  tags   = "${var.tags}"
 }

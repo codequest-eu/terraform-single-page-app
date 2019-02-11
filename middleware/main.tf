@@ -1,5 +1,4 @@
 provider "aws" {
-  alias  = "middleware"
   region = "us-east-1"
 }
 
@@ -20,10 +19,9 @@ data "archive_file" "archive" {
 }
 
 resource "aws_s3_bucket_object" "archive" {
-  provider = "aws.middleware"
-  bucket   = "${var.code_bucket}"
-  key      = "${local.archive_name}"
-  source   = "${local.archive_path}"
+  bucket = "${var.code_bucket}"
+  key    = "${local.archive_name}"
+  source = "${local.archive_path}"
 
   lifecycle {
     create_before_destroy = true
@@ -31,7 +29,6 @@ resource "aws_s3_bucket_object" "archive" {
 }
 
 resource "aws_lambda_function" "middleware" {
-  provider      = "aws.middleware"
   s3_bucket     = "${var.code_bucket}"
   s3_key        = "${aws_s3_bucket_object.archive.id}"
   function_name = "${var.name}"
