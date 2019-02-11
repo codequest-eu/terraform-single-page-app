@@ -1,3 +1,8 @@
+provider "aws" {
+  alias  = "middleware"
+  region = "us-east-1"
+}
+
 resource "aws_s3_bucket" "assets" {
   bucket = "${local.name_prefix}-assets"
   acl    = "private"
@@ -111,4 +116,15 @@ resource "aws_cloudfront_distribution" "assets" {
   }
 
   tags = "${local.tags}"
+}
+
+module "middleware_common" {
+  source = "./middleware_common"
+
+  name_prefix = "${local.name_prefix}"
+  tags        = "${local.tags}"
+
+  providers = {
+    aws = "aws.middleware"
+  }
 }
