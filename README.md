@@ -28,16 +28,17 @@ The [`master`](https://github.com/codequest-eu/terraform-single-page-app/tree/ma
 
 ## Inputs
 
-| Name                            | Description                                                                                                                                 |  Type  |      Default       | Required |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :----------------: | :------: |
-| certificate\_arn                | ACM certificate ARN to use instead of the default cloudfront certificate                                                                    | string |        `""`        |    no    |
-| cloudfront\_price\_class        | CloudFront price class, which specifies where the distribution should be replicated, one of: PriceClass_100, PriceClass_200, PriceClass_All | string | `"PriceClass_100"` |    no    |
-| domains                         | List of domains which will serve the application. If empty, will use the default cloudfront domain                                          |  list  |      `<list>`      |    no    |
-| environment                     | Kebab-cased name of the environment, eg. production, staging, development, preview. Will be included in resource names                      | string |        n/a         |   yes    |
-| project                         | Kebab-cased name of the project. Will be included in resource names                                                                         | string |        n/a         |   yes    |
-| static\_cors\_max\_age\_seconds | How long can CORS OPTIONS request responses be cached                                                                                       | string |      `"3600"`      |    no    |
-| static\_path                    | Base path for static assets                                                                                                                 | string |    `"/static"`     |    no    |
-| tags                            | Additional tags to add to each resource that supports them                                                                                  |  map   |      `<map>`       |    no    |
+| Name                            | Description                                                                                                                                 |  Type  |       Default        | Required |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | :----: | :------------------: | :------: |
+| certificate\_arn                | ACM certificate ARN to use instead of the default cloudfront certificate                                                                    | string |         `""`         |    no    |
+| cloudfront\_price\_class        | CloudFront price class, which specifies where the distribution should be replicated, one of: PriceClass_100, PriceClass_200, PriceClass_All | string |  `"PriceClass_100"`  |    no    |
+| domains                         | List of domains which will serve the application. If empty, will use the default cloudfront domain                                          |  list  |       `<list>`       |    no    |
+| environment                     | Kebab-cased name of the environment, eg. production, staging, development, preview. Will be included in resource names                      | string |         n/a          |   yes    |
+| project                         | Kebab-cased name of the project. Will be included in resource names                                                                         | string |         n/a          |   yes    |
+| pull\_request\_path\_re         | Regular expression which extracts the base directory of a PR as it's first match group                                                      | string | `"^/(PR-\\d+)($|/)"` |    no    |
+| static\_cors\_max\_age\_seconds | How long can CORS OPTIONS request responses be cached                                                                                       | string |       `"3600"`       |    no    |
+| static\_path                    | Base path for static assets                                                                                                                 | string |     `"/static"`      |    no    |
+| tags                            | Additional tags to add to each resource that supports them                                                                                  |  map   |       `<map>`        |    no    |
 
 ## Outputs
 
