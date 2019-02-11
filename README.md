@@ -11,18 +11,18 @@ Module creates:
 
 ## Variants
 
-The `master` branch should be used for public production deployments, for development environments you might want to use:
+The [`master`](https://github.com/codequest-eu/terraform-single-page-app/tree/master) branch should be used for public production deployments, for development environments you might want to use:
 
-- `basic-auth`
+- [`basic-auth`](https://github.com/codequest-eu/terraform-single-page-app/tree/basic-auth)
 
   Adds a AWS Lambda@Edge which protects the `index.html` using basic auth.
   Should be used for development and staging environments.
 
-- `pull-request-router`
+- [`pull-request-router`](https://github.com/codequest-eu/terraform-single-page-app/tree/pull-request-router)
 
   Adds a AWS Lambda@Edge which routes traffic to Pull Request specific `index.html`
 
-- `basic-auth-and-pull-request-router`
+- [`basic-auth-and-pull-request-router`](https://github.com/codequest-eu/terraform-single-page-app/tree/basic-auth-and-pull-request-router)
 
   Combines `basic-auth` and `pull-request-router`. Should be used for preview environments.
 
