@@ -26,6 +26,14 @@ The [`master`](https://github.com/codequest-eu/terraform-single-page-app/tree/ma
 
   Combines `basic-auth` and `pull-request-router`. Should be used for preview environments.
 
+> **But Why!?**
+> 
+> [`aws_cloudfront_distribution`](https://www.terraform.io/docs/providers/aws/r/cloudfront_distribution.html) uses `lambda_function_association` blocks to add Lambda@Edge hooks, unfortunately `lambda_function_association` doesn't have any `enabled` flag, which means, as of terraform 0.11, it's not possible to add only some associations based on variables. 
+> 
+> This could be solved by:
+> - terraform AWS provider by making `lambda_function_association` it's own resource, which we could toggle by setting `count`
+> - terraform 0.12 which will make the configuration language a lot more powerful
+
 ## Inputs
 
 | Name                            | Description                                                                                                                                 |  Type  |      Default       | Required |
