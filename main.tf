@@ -62,7 +62,6 @@ resource "aws_cloudfront_distribution" "assets" {
   default_root_object = "index.html"
   price_class         = "${var.cloudfront_price_class}"
 
-  # hashed static assets should not require basic auth
   ordered_cache_behavior {
     path_pattern           = "${var.static_path}/*"
     allowed_methods        = ["GET", "HEAD", "OPTIONS"]
