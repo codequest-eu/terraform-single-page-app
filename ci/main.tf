@@ -12,18 +12,23 @@ resource "aws_iam_user" "ci" {
 }
 
 data "aws_iam_policy_document" "ci" {
+  # List buckets
+  statement {
+    actions   = ["s3:ListBucket"]
+    resources = ["${var.bucket_arns}"]
+  }
+
   # Sync assets
   statement {
     actions = [
-      "s3:DeleteObject",
       "s3:GetObject",
-      "s3:ListBucket",
       "s3:PutObject",
+      "s3:DeleteObject",
       "s3:AbortMultipartUpload",
       "s3:ListMultipartUploadParts",
     ]
 
-    resources = ["${var.bucket_arns}"]
+    resources = ["${formatlist("%s/*", var.bucket_arns)}"]
   }
 }
 
