@@ -171,11 +171,10 @@ data "template_file" "pull_request_router" {
 module "pull_request_router" {
   source = "./middleware"
 
-  name        = "${local.name_prefix}-pull-request-router"
-  code        = "${data.template_file.pull_request_router.rendered}"
-  code_bucket = "${module.middleware_common.source_bucket_name}"
-  role_arn    = "${module.middleware_common.role_arn}"
-  tags        = "${local.tags}"
+  name     = "${local.name_prefix}-pull-request-router"
+  code     = "${data.template_file.pull_request_router.rendered}"
+  role_arn = "${module.middleware_common.role_arn}"
+  tags     = "${local.tags}"
 
   providers = {
     aws = "aws.middleware"
