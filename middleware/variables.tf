@@ -1,6 +1,5 @@
 variable "name" {}
 variable "code" {}
-variable "code_bucket" {}
 variable "role_arn" {}
 
 variable "runtime" {
