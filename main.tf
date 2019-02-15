@@ -127,7 +127,6 @@ module "middleware_common" {
   source = "./middleware_common"
 
   name_prefix = "${local.name_prefix}"
-  tags        = "${local.tags}"
 
   providers = {
     aws = "aws.middleware"
@@ -145,11 +144,10 @@ data "template_file" "basic_auth" {
 module "basic_auth" {
   source = "./middleware"
 
-  name        = "${local.name_prefix}-basic-auth"
-  code        = "${data.template_file.basic_auth.rendered}"
-  code_bucket = "${module.middleware_common.source_bucket_name}"
-  role_arn    = "${module.middleware_common.role_arn}"
-  tags        = "${local.tags}"
+  name     = "${local.name_prefix}-basic-auth"
+  code     = "${data.template_file.basic_auth.rendered}"
+  role_arn = "${module.middleware_common.role_arn}"
+  tags     = "${local.tags}"
 
   providers = {
     aws = "aws.middleware"
