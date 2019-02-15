@@ -5,7 +5,7 @@ provider "aws" {
 locals {
   hash         = "${md5(var.code)}"
   archive_name = "${var.name}.${local.hash}.zip"
-  archive_path = "${path.module}/tmp/${local.archive_name}"
+  archive_path = "/tmp/${local.archive_name}"
 }
 
 data "archive_file" "archive" {
@@ -18,19 +18,8 @@ data "archive_file" "archive" {
   }
 }
 
-resource "aws_s3_bucket_object" "archive" {
-  bucket = "${var.code_bucket}"
-  key    = "${local.archive_name}"
-  source = "${local.archive_path}"
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
 resource "aws_lambda_function" "middleware" {
-  s3_bucket     = "${var.code_bucket}"
-  s3_key        = "${aws_s3_bucket_object.archive.id}"
+  filename      = "${local.archive_path}"
   function_name = "${var.name}"
   role          = "${var.role_arn}"
   runtime       = "${var.runtime}"

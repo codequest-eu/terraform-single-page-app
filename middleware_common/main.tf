@@ -21,9 +21,3 @@ resource "aws_iam_role" "role" {
   name               = "${var.name_prefix}-middleware"
   assume_role_policy = "${data.aws_iam_policy_document.middleware.json}"
 }
-
-resource "aws_s3_bucket" "code" {
-  bucket = "${var.name_prefix}-middleware-code"
-  acl    = "private"
-  tags   = "${var.tags}"
-}
