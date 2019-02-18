@@ -96,6 +96,13 @@ resource "aws_cloudfront_distribution" "assets" {
     }
   }
 
+  custom_error_response {
+    error_code            = 404
+    error_caching_min_ttl = 0
+    response_code         = 200
+    response_page_path    = "/index.html"
+  }
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
