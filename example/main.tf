@@ -2,11 +2,22 @@ provider "aws" {
   region = "eu-west-1" # Ireland
 }
 
+# Lambda@Edge has to be created in us-east-1, so we need a separate provider
+provider "aws" {
+  alias  = "middleware"
+  region = "us-east-1"
+}
+
 # terraform apply -target module.basic -target aws_s3_bucket_object.basic_index
 # terraform output -module basic
 module "basic" {
   # source = "github.com/codequest-eu/terraform-single-page-app?ref={commit}"
   source = ".."
+
+  providers {
+    aws            = "aws"
+    aws.middleware = "aws.middleware"
+  }
 
   # only project name and environment are required
   project                = "terraform-spa-auth"
