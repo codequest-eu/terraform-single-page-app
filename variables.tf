@@ -41,3 +41,8 @@ variable "cloudfront_price_class" {
 
   default = "PriceClass_100"
 }
+
+variable "bucket" {
+  description = "Kebab-cased bucket name override"
+  default     = ""
+}
