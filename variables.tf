@@ -42,6 +42,11 @@ variable "cloudfront_price_class" {
   default = "PriceClass_100"
 }
 
+variable "bucket" {
+  description = "Kebab-cased bucket name override"
+  default     = ""
+}
+
 variable "pull_request_path_re" {
   description = "Regular expression which extracts the base directory of a PR as it's first match group"
   default     = "^/(PR-\\d+)($|/)"

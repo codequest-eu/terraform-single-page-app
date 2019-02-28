@@ -4,7 +4,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "assets" {
-  bucket = "${local.name_prefix}-assets"
+  bucket = "${var.bucket != "" ? var.bucket : "${local.name_prefix}-assets"}"
   acl    = "private"
   tags   = "${local.tags}"
 
