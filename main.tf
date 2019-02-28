@@ -1,6 +1,5 @@
 provider "aws" {
-  alias  = "middleware"
-  region = "us-east-1"
+  alias = "middleware"
 }
 
 resource "aws_s3_bucket" "assets" {

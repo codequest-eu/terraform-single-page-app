@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "us-east-1"
-}
-
 locals {
   hash         = "${md5(var.code)}"
   archive_name = "${var.name}.${local.hash}.zip"
