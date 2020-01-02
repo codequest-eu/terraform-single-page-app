@@ -3,7 +3,7 @@ variable "code" {}
 variable "role_arn" {}
 
 variable "runtime" {
-  default = "nodejs8.10"
+  default = "nodejs12.x"
 }
 
 variable "handler" {
