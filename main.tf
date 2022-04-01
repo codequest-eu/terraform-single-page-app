@@ -112,8 +112,9 @@ resource "aws_cloudfront_distribution" "assets" {
   viewer_certificate {
     cloudfront_default_certificate = "${var.certificate_arn == "" ? true : false}"
 
-    acm_certificate_arn = "${var.certificate_arn}"
-    ssl_support_method  = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2019"
+    acm_certificate_arn      = "${var.certificate_arn}"
+    ssl_support_method       = "sni-only"
   }
 
   tags = "${local.tags}"
