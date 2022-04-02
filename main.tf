@@ -1,3 +1,7 @@
+provider "aws" {
+  alias = "middleware"
+}
+
 resource "aws_s3_bucket" "assets" {
   bucket = "${var.bucket != "" ? var.bucket : "${local.name_prefix}-assets"}"
   acl    = "private"
@@ -94,13 +98,12 @@ resource "aws_cloudfront_distribution" "assets" {
         forward = "none"
       }
     }
-  }
 
-  custom_error_response {
-    error_code            = 404
-    error_caching_min_ttl = 0
-    response_code         = 200
-    response_page_path    = "/index.html"
+    lambda_function_association {
+      event_type   = "origin-request"
+      lambda_arn   = "${module.pull_request_router.arn}"
+      include_body = false
+    }
   }
 
   restrictions {
@@ -118,4 +121,35 @@ resource "aws_cloudfront_distribution" "assets" {
   }
 
   tags = "${local.tags}"
+}
+
+module "middleware_common" {
+  source = "./middleware_common"
+
+  name_prefix = "${local.name_prefix}"
+
+  providers = {
+    aws = "aws.middleware"
+  }
+}
+
+data "template_file" "pull_request_router" {
+  template = "${file("${path.module}/templates/pull-request-router.js")}"
+
+  vars {
+    path_re = "${var.pull_request_path_re}"
+  }
+}
+
+module "pull_request_router" {
+  source = "./middleware"
+
+  name     = "${local.name_prefix}-pull-request-router"
+  code     = "${data.template_file.pull_request_router.rendered}"
+  role_arn = "${module.middleware_common.role_arn}"
+  tags     = "${local.tags}"
+
+  providers = {
+    aws = "aws.middleware"
+  }
 }
