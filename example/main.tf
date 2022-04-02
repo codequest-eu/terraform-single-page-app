@@ -20,13 +20,14 @@ module "basic" {
   }
 
   # only project name and environment are required
-  project     = "terraform-spa"
-  environment = "example"
+  project                = "terraform-spa-auth"
+  environment            = "example"
+  basic_auth_credentials = "example:app"
 }
 
 resource "aws_s3_bucket_object" "basic_index" {
   bucket        = "${module.basic.bucket_name}"
-  key           = "index.html"
+  key           = "PR-1/index.html"
   content       = "<h1>Hello world</h1>"
   content_type  = "text/html"
   cache_control = "no-cache no-store"
